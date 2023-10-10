@@ -1,5 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
+import { getRoom } from "../api/rooms";
+import DashboardLayout from "../layouts/DashboardLayout";
 import Main from "../layouts/Main";
+import AddRoom from "../pages/Dashboard/AddRoom";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
@@ -17,8 +20,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/room/:id",
-        element:<PrivateRoute><RoomDetails/></PrivateRoute>,
-      },
+        element:(<PrivateRoute><RoomDetails/></PrivateRoute>),
+        loader:({params})=>getRoom(params.id)
+      }
+        
+    
     ],
   },
   {
@@ -29,4 +35,14 @@ export const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
+  {
+    path : '/dashboard',
+    element :<DashboardLayout/>,
+    children:[
+      {
+        path:'/dashboard/add-room',
+        element:<AddRoom/>
+      }
+    ]
+  }
 ]);

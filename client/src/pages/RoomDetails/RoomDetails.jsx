@@ -1,10 +1,13 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 import Header from '../../components/Rooms/Header';
 import RoomInfo from '../../components/Rooms/RoomInfo';
 import RoomReservation from '../../components/Rooms/RoomReservation';
 import Container from '../../components/Shared/Container/Container';
 
 const RoomDetails = () => {
+    const data = useLoaderData();
+    console.log(data)
     return (
         <Container>
             <div className="max-w-screen-lg mx-auto">

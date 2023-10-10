@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { saveUser } from "../../api/auth";
 import { AuthContext } from "../../providers/AuthProvider";
 const SignUp = () => {
   const {
@@ -40,12 +42,14 @@ const SignUp = () => {
         console.log(imgUrl);
         createUser(email,password)
         .then(result=>{
-          // console.log(result.user)
+          console.log(result.user)
           updateUserProfile(name,imgUrl)
           // navigate(form,{replace:true})
            .then(()=>{
-           
+            // save user to database 
+            saveUser(result.user)
             navigate(from,{replace:true})
+            toast.success('Update Profile Successfully')
            })
            .catch(error=>{
             setLoading(false)
@@ -77,6 +81,8 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
+       // save user to db  
+        saveUser(result.user)
         navigate("/");
       })
       .catch((error) => {

@@ -11,7 +11,7 @@ const Header = () => {
       ></Heading>
       
        <div className="w-full md:h-[60vh] overflow-hidden rounded-lg">
-        <img className="object-cover" src="https://i.ibb.co/SVNrbZ3/unnamed.jpg" alt="header image" />
+        <img className="object-cover" src="https://i.ibb.co/252RwBK/IMG-20220921-131154-0.png" alt="header image" />
       </div>
     </>
   );

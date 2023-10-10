@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { saveUser } from '../../api/auth';
 import { AuthContext } from '../../providers/AuthProvider';
 const Login = () => {
 const { 
@@ -42,7 +43,8 @@ const {
    const handleGoogleSignIn=()=>{
     signInWithGoogle()
     .then(result=>{
-      console.log(result.user);
+      saveUser('email',result.user)
+      console.log('login',result.user);
       navigate('/')
     })
     .catch(error=>{
@@ -51,7 +53,7 @@ const {
       setLoading(false);
     })
     
-   }
+   } 
    //handle  Password Reset
    const handleReset=()=>{
      const email = emailRef.current.value;
