@@ -1,12 +1,15 @@
 import React, { useCallback, useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { becomeHost } from "../../../api/auth";
 import { AuthContext } from "../../../providers/AuthProvider";
+import HostModal from "../../Modal/HostRequestModal";
 import Avatar from "./Avatar";
 const MenuDropdown = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [modal,setModal] = useState(false)
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -14,10 +17,21 @@ const MenuDropdown = () => {
   // const toggleOpen = ()=>{
   //    setIsOpen(!isOpen);
   // }
+  const modalHandler = email=>{
+   becomeHost(email).then(data=>{
+    console.log(data);
+    toast.success('You are host now. Post Rooms');
+    closeModal()
+   })
+
+  }
+  const closeModal = ()=>{
+    setModal(false)
+  }
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div onClick={()=>setModal(true)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           Become a host
         </div>
         <div
@@ -40,7 +54,8 @@ const MenuDropdown = () => {
             >
               Home
             </Link>
-            {user ? (
+            {
+            user ? (
               <>
                 <Link
                   to="/dashboard"
@@ -63,6 +78,7 @@ const MenuDropdown = () => {
                 >
                   Login
                 </Link>
+
                 <Link
                   to="/signup"
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
@@ -70,10 +86,12 @@ const MenuDropdown = () => {
                   Sign Up
                 </Link>
               </>
-            )}
+            )
+            }
           </div>
         </div>
       )}
+      <HostModal email={user?.email} modalHandler={modalHandler} isOpen={modal} closeModal={closeModal}/>
     </div>
   );
 };

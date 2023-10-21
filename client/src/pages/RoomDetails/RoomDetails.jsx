@@ -6,20 +6,21 @@ import RoomReservation from '../../components/Rooms/RoomReservation';
 import Container from '../../components/Shared/Container/Container';
 
 const RoomDetails = () => {
-    const data = useLoaderData();
-    console.log(data)
+    const roomData = useLoaderData();
+
+    console.log(roomData)
     return (
         <Container>
-            <div className="max-w-screen-lg mx-auto">
+            <div  className="max-w-screen-lg mx-auto">
                 <div className='flex flex-col gap-6'>
-                    <Header/>
+                    <Header roomData={roomData} />
                    <div className='grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6'>
-                    <RoomInfo/>
+                    <RoomInfo roomData={roomData}/>
                     <div className='mb-4 md:col-span-3 order-fast md:order-last'>
-                        <RoomReservation/>
+                        <RoomReservation roomData={roomData}/>
                     </div>
                   </div>
-                </div>
+                </div> 
             </div>
         </Container>
     );

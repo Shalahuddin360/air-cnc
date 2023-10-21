@@ -38,8 +38,9 @@ async function run() {
     const usersCollection = client.db('aircncDb').collection('users')
     const roomsCollection = client.db('aircncDb').collection('rooms')
     // const bookingsCollection = client.db('aircncDb').collection('bookings')
-    // save user email and role in Db
-app.put('/users/:email',async(req,res)=>{
+
+  // save user email and role in Db
+  app.put('/users/:email',async(req,res)=>{
   const email = req.params.email;
   const user = req.body;
   console.log(user)
@@ -48,10 +49,19 @@ app.put('/users/:email',async(req,res)=>{
   const updateDoc = {
     $set : user 
   }
-  const result = await usersCollection.updateOne(query,updateDoc,options)
-  console.log(result)
+  const result = await usersCollection.updateOne(query,updateDoc,options);
+  console.log(result);
   res.send(result)
 })
+
+//get a user 
+
+app.get('/users/:email',async(req,res)=>{
+  const email = req.params.email;
+  const query = {email:email}
+  const result = await usersCollection.findOne(query);
+  res.send(result)
+ })
 // get all rooms 
 app.get('/rooms',async(req,res)=>{
  const result = await roomsCollection.find().toArray()
