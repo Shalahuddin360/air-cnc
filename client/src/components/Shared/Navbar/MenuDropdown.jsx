@@ -7,7 +7,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import HostModal from "../../Modal/HostRequestModal";
 import Avatar from "./Avatar";
 const MenuDropdown = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut , role,setRole } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [modal,setModal] = useState(false)
   const toggleOpen = useCallback(() => {
@@ -17,10 +17,12 @@ const MenuDropdown = () => {
   // const toggleOpen = ()=>{
   //    setIsOpen(!isOpen);
   // }
+  // console.log(role)
   const modalHandler = email=>{
    becomeHost(email).then(data=>{
     console.log(data);
     toast.success('You are host now. Post Rooms');
+    setRole('host')
     closeModal()
    })
 
@@ -31,8 +33,12 @@ const MenuDropdown = () => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div onClick={()=>setModal(true)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          Become a host
+        <div  className="hidden md:block text-sm font-semibold py-3 px-8 rounded-full transition cursor-pointer">
+        {
+          !role && (
+            <button className="cursor-pointer  py-3 px-4 hover:bg-neutral-100" onClick={()=>setModal(true)} disabled={!user}> AirCNC Your Home</button>
+          )
+        }
         </div>
         <div
           onClick={toggleOpen}
@@ -64,7 +70,10 @@ const MenuDropdown = () => {
                   Dashboard
                 </Link>
                 <div
-                  onClick={logOut}
+                  onClick={()=>{
+                    setRole(null)
+                    logOut()
+                  }}
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
                 >
                   Logout

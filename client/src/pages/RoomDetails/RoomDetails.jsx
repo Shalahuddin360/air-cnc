@@ -7,7 +7,6 @@ import Container from '../../components/Shared/Container/Container';
 
 const RoomDetails = () => {
     const roomData = useLoaderData();
-
     console.log(roomData)
     return (
         <Container>
