@@ -1,7 +1,7 @@
-// post all DaroomDatas 
+// post all room 
 export const addRoom = async roomData => {
     console.log("roomData",roomData)
- const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms`,{
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms`,{
     method : 'POST',
     headers : {
         'content-type' : 'application/json',

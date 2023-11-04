@@ -37,7 +37,7 @@ async function run() {
 
     const usersCollection = client.db('aircncDb').collection('users')
     const roomsCollection = client.db('aircncDb').collection('rooms')
-    // const bookingsCollection = client.db('aircncDb').collection('bookings')
+    const bookingsCollection = client.db('aircncDb').collection('bookings')
 
   // save user email and role in Db
   app.put('/users/:email',async(req,res)=>{
@@ -76,13 +76,36 @@ app.get('/room/:id',async(req,res)=>{
  res.send(result)
 })
 
-// post a room 
-app.post('/rooms',async(req,res)=>{
+// post a room in database 
+ app.post('/rooms',async(req,res)=>{
  const room = req.body;
  console.log('Room',room);
  const result = await roomsCollection.insertOne(room);
  res.send(result)
 })
+// save a  bookingInfo in database 
+
+app.post('/bookings',async(req,res)=>{
+  const booking = req.body;
+  console.log('booking',booking);
+  const result = await bookingsCollection.insertOne(booking);
+  res.send(result)
+ })
+ //update room booking status in database 
+ app.patch('/rooms/status/:id',async(req,res)=>{
+  const id = req.params.id;
+  const status = req.body.status
+  const query = {_id : new ObjectId(id)}
+  const updateDoc = {
+    $set : {
+      booked : status,
+    }
+  }
+  const update = await roomsCollection.updateOne(query,updateDoc);
+  res.send(update)
+
+ })
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
