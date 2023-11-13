@@ -1,12 +1,14 @@
 import { formatDistance } from "date-fns";
 import React, { useContext, useState } from "react";
 import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 import { addBooking, updateStatus } from "../../api/bookings";
 import { AuthContext } from "../../providers/AuthProvider";
 import Button from "../Button/Button";
 import BookingModal from "../Modal/BookingModal";
 import DatePicker from "./DatePicker";
 const RoomReservation = ({roomData}) => {
+  const navigate = useNavigate();
   const { user , role } = useContext(AuthContext);
   console.log(roomData)
   //price calculation 

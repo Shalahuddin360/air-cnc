@@ -3,6 +3,7 @@ import { getRoom } from "../api/rooms";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Main from "../layouts/Main";
 import AddRoom from "../pages/Dashboard/AddRoom";
+import MyBookings from "../pages/Dashboard/MyBookings";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
@@ -43,10 +44,14 @@ export const router = createBrowserRouter([
         path:'/dashboard/add-room',
         element:<AddRoom/>
       },
-      // {
-      //   path:'/dashboard/my-bookings',
-      //   element:<MyBookings/>
-      // }
+      {
+        path:'/dashboard/my-bookings',
+        element:<MyBookings/>
+      },
+      {
+        path:'/dashboard/my-listings',
+        element:<MyBookings/>
+      }
     ]
   }
 ]);

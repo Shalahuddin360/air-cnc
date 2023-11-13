@@ -25,3 +25,18 @@ export const getRoom = async id=>{
     const data = response.json();
     return data;
 }
+
+// Get Rooms 
+export const getRooms = async email=>{
+
+   const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/email`)
+   const data = response.json();
+   return data;
+}
+// delete a room 
+
+export const deleteRoom = async id =>{
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/id`)
+    const data = response.json()
+    return response;
+}

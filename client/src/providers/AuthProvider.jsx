@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   const [role,setRole] = useState(null)
   useEffect(()=>{
    if(user){
-    getRole(user.email)
+    getRole(user?.email)
     .then(data=>setRole(data))
    }
   },[user])
