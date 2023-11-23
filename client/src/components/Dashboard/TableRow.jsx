@@ -6,9 +6,11 @@ import DeleteModal from '../Modal/DeleteModal';
 const TableRow = ({ booking ,fetchBookings}) => {
   const [isOpen,setIsOpen] = useState(false);
   console.log(booking)
+
   const closeModal = ()=>{
     setIsOpen(false)
   }
+
   const modalHandler=id=>{
      deleteBooking(id)
      .then(()=>{

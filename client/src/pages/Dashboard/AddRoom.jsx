@@ -1,19 +1,23 @@
 import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { addRoom } from '../../api/rooms';
 import { imageUpload } from '../../api/utils';
 import AddRoomForm from '../../components/Forms/AddRoomForm';
 import { AuthContext } from '../../providers/AuthProvider';
-
 const AddRoom = () => {
+    const navigate = useNavigate();
+    const {user} = useContext(AuthContext)
     const [loading,setLoading] = useState(false);
     const [uploadButtonText,setUploadButtonText] = useState('Upload Image');
-    const [dates,setDates] = useState( {
+    
+    const [dates,setDates] = useState({
       startDate: new Date(),
       endDate: new Date(),
       key: 'selection',
     })
-    const {user} = useContext(AuthContext)
 
+    
     // handle from submit 
     const handleSubmit =event=>{
         setLoading(true)
@@ -29,6 +33,7 @@ const AddRoom = () => {
      const description = event.target.description.value;
      const category = event.target.category.value
      const image = event.target.image.files[0];
+      setUploadButtonText('Uploading...')
     //  image upload 
       imageUpload(image)
       .then(data=>{
@@ -56,10 +61,21 @@ const AddRoom = () => {
         console.log(roomData)
       //  post roomData to server
         addRoom(roomData)
-        .then(data=>console.log('Data',data))
-        .catch(error=>error.message)
-        // console.log(roomData)
-        setLoading(false)
+        .then(data=>{
+          console.log('Data',data)
+          setUploadButtonText('Uploaded!')
+          setLoading(false)
+          toast.success('room added')
+          navigate('/dashboard/my-listings')
+   
+        
+        })
+        .catch(error=> {
+          console.log(error.message)
+          setLoading(false)``
+        })
+      
+       
         })
 
       .catch(error=>{
@@ -69,7 +85,7 @@ const AddRoom = () => {
     }
     const handleImageChange = image=>{
         console.log(image)
-        setUploadButtonText(image.name)
+        setUploadButtonText(image?.name)
     }
     const handleDates = ranges=>{
       console.log(ranges.selection)

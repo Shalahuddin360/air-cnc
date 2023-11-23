@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
-import { getBookings } from '../../api/bookings'
+import { getHostBookings } from '../../api/bookings'
 import TableRow from '../../components/Dashboard/TableRow'
 import { AuthContext } from '../../providers/AuthProvider'
 
-const MyBookings = () => {
+const ManageBookings = () => {
   const [bookings, setBookings] = useState([])
   const { user } = useContext(AuthContext)
   const fetchBookings = () => {
-    getBookings(user?.email)
+    getHostBookings(user?.email)
     .then(data => { 
       setBookings(data)
     })
@@ -16,9 +16,7 @@ const MyBookings = () => {
     fetchBookings() 
   }, [user])
   return (
-    <>
-     {
-      bookings && Array.isArray(bookings) && bookings.length > 0 ? (      <div className='container mx-auto px-4 sm:px-8'>
+    <div className='container mx-auto px-4 sm:px-8'>
       <div className='py-8'>
         <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
           <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
@@ -78,11 +76,7 @@ const MyBookings = () => {
         </div>
       </div>
     </div>
-    ) : (
-    <p>No Data Found</p>
-    )}
-    </>
   )
 }
 
-export default MyBookings
+export default ManageBookings

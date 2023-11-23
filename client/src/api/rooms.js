@@ -36,7 +36,15 @@ export const getRooms = async email=>{
 // delete a room 
 
 export const deleteRoom = async id =>{
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/id`)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/id`,{
+        method : 'DELETE',
+        headers : {
+          'content-type' :  'application/json' 
+        },y
+
+    })
     const data = response.json()
-    return response;
+    console.log(data)
+    return data;
+    
 }

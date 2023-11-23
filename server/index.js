@@ -1,12 +1,10 @@
 const express = require("express");
-const cors = require('cors')
-
+const cors = require('cors');
+const morgan = require('morgan');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const app = express();
 const port = process.env.PORT || 5000;
-
-
 
 //middleware
 const corsOptions = {
@@ -16,7 +14,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use(express.json())
-
+app.use(morgan('dev'))
 app.get('/', (req, res) => {
     res.send('AirCNC Server is running..')
   })
@@ -108,11 +106,21 @@ app.delete('/rooms/:id',async(req,res)=>{
   res.send(result)
   
 })
+// get a bookings for a host 
+app.get('/bookings/host',async(req,res)=>{
+  const email = req.query.email;
+  if(!email){
+    res.send([])
+  }
+  const query = {host : email}
+  const result = await bookingsCollection.find(query).toArray()
+  res.send(result)
+  
+})
 // save a  bookingInfo in database 
 
-app.post('/bookings',async(req,res)=>{
+ app.post('/bookings',async(req,res)=>{
   const booking = req.body;
-  console.log('booking',booking);
   const result = await bookingsCollection.insertOne(booking);
   res.send(result)
  })

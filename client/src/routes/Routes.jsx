@@ -3,6 +3,7 @@ import { getRoom } from "../api/rooms";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Main from "../layouts/Main";
 import AddRoom from "../pages/Dashboard/AddRoom";
+import ManageBookings from "../pages/Dashboard/ManageBookings";
 import MyBookings from "../pages/Dashboard/MyBookings";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
     element : <PrivateRoute> <DashboardLayout/> </PrivateRoute>,
     children:[
       {
+        path:'/dashboard/',
+        element:<MyBookings/>
+      },
+      {
         path:'/dashboard/add-room',
         element:<AddRoom/>
       },
@@ -51,6 +56,11 @@ export const router = createBrowserRouter([
       {
         path:'/dashboard/my-listings',
         element:<MyBookings/>
+      }
+      ,
+      {
+        path:'/dashboard/manage-bookings',
+        element:<ManageBookings/>
       }
     ]
   }

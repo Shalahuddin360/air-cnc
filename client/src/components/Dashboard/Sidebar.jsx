@@ -15,6 +15,9 @@ const Sidebar = () => {
   const [isActive, setActive] = useState("false");
 
   const toggleHandler = (event) => {
+    console.log(event)
+    const result = event.target.checked;
+    console.log(result)
     setToggle(event.target.checked);
   };
   // Sidebar Responsive Handler
@@ -42,6 +45,7 @@ const Sidebar = () => {
           <AiOutlineBars className="h-5 w-5" />
         </button>
       </div>
+      
       {/* Sidebar */}
       <div
         className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
@@ -100,6 +104,7 @@ const Sidebar = () => {
                   </label>
                   {/* Menu Links */}
                    {toggle ? <HostMenu/> : <GuestMenu/>}
+
                   {/* <NavLink
                   to='/dashboard/add-room'
                   className={({ isActive }) =>
@@ -112,6 +117,7 @@ const Sidebar = () => {
 
                   <span className='mx-4 font-medium'>Add Room</span>
                 </NavLink> */}
+
                 </>
               ) : (
                 <GuestMenu />
