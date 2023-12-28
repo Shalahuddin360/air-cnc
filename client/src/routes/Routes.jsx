@@ -5,6 +5,7 @@ import Main from "../layouts/Main";
 import AddRoom from "../pages/Dashboard/AddRoom";
 import ManageBookings from "../pages/Dashboard/ManageBookings";
 import MyBookings from "../pages/Dashboard/MyBookings";
+import MyListings from "../pages/Dashboard/MyListings";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
@@ -31,11 +32,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <Login/>,
   },
   {
     path: "/signup",
-    element: <SignUp />,
+    element: <SignUp/>,
   },
   {
     path : '/dashboard',
@@ -55,9 +56,8 @@ export const router = createBrowserRouter([
       },
       {
         path:'/dashboard/my-listings',
-        element:<MyBookings/>
-      }
-      ,
+        element:<MyListings/>
+      },
       {
         path:'/dashboard/manage-bookings',
         element:<ManageBookings/>

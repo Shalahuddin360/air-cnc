@@ -14,7 +14,7 @@ export const addRoom = async roomData => {
  return data
 }
 // GET All Rooms 
-export const getAllRooms = async()=>{
+export const getAllRooms = async ()=>{
     const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms`)
     const data = response.json();
     return data;
@@ -29,7 +29,11 @@ export const getRoom = async id=>{
 // Get Rooms 
 export const getRooms = async email=>{
 
-   const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/email`)
+   const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms/${email}`,{
+    headers : {
+        authorization : `Bearer ${localStorage.getItem('access-token')}`
+    }
+   })
    const data = response.json();
    return data;
 }
